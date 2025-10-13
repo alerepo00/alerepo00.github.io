@@ -7,234 +7,233 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* --- STILE GENERALE --- */
-        :root {
-            --primary-color: #00ff41; /* Verde "hacker" */
-            --background-color: #0d1117;
-            --text-color: #c9d1d9;
-            --border-color: #30363d;
-            --error-color: #ff5f56;
-        }
+   <style>
+    /* --- STILE GENERALE --- */
+    :root {
+        --primary-color: #00ff41; /* Verde "hacker" */
+        --background-color: #0d1117;
+        --text-color: #c9d1d9;
+        --border-color: #30363d;
+        --error-color: #ff5f56;
+    }
 
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Fira Code', monospace;
-            margin: 0;
-            overflow-x: hidden; /* Permette scroll verticale, nasconde quello orizzontale */
-            font-size: 16px; /* Base per unità REM */
-        }
+    body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        font-family: 'Fira Code', monospace;
+        margin: 0;
+        overflow-x: hidden; /* Nasconde scroll orizzontale ma permette quello verticale */
+        font-size: 16px;
+    }
 
-        /* --- 1. SCHERMATA DI LOGIN --- */
-        #login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* MODIFICA: Permette al contenitore di crescere */
-            padding: 1rem;
-            box-sizing: border-box;
-            transition: opacity 0.5s ease-out;
-            width: 100%;
-        }
+    /* --- 1. SCHERMATA DI LOGIN --- */
+    #login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 1rem;
+        box-sizing: border-box;
+        transition: opacity 0.5s ease-out;
+        width: 100%;
+    }
 
-        .login-box {
-            width: 100%;
-            max-width: 400px;
-            padding: 2.5rem;
-            background-color: rgba(20, 25, 35, 0.85);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
-            text-align: center;
-            box-sizing: border-box;
-        }
+    .login-box {
+        width: 100%;
+        max-width: 400px;
+        padding: 2.5rem;
+        background-color: rgba(20, 25, 35, 0.85);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        text-align: center;
+        box-sizing: border-box;
+    }
 
-        .login-box h1 {
-            color: var(--primary-color);
-            font-size: 1.8em;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-        }
+    .login-box h1 {
+        color: var(--primary-color);
+        font-size: 1.8em;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+    }
 
-        .login-box p {
-            font-size: 0.9em;
-            margin-bottom: 1.5rem;
-        }
+    .login-box p {
+        font-size: 0.9em;
+        margin-bottom: 1.5rem;
+    }
 
-        #password-input {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1.2rem;
-            background-color: var(--background-color);
-            border: 1px solid var(--border-color);
-            color: var(--primary-color);
-            font-family: 'Fira Code', monospace;
-            font-size: 1em;
-            text-align: center;
-            outline: none;
-            box-sizing: border-box;
-        }
-        
-        #password-input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-        }
+    #password-input {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 1.2rem;
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+        color: var(--primary-color);
+        font-family: 'Fira Code', monospace;
+        font-size: 1em;
+        text-align: center;
+        outline: none;
+        box-sizing: border-box;
+    }
+    
+    #password-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    }
 
-        #login-button {
-            padding: 0.7rem 1.5rem;
-            background: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-        
-        #login-button:hover {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-        }
+    #login-button {
+        padding: 0.7rem 1.5rem;
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        cursor: pointer;
+        font-size: 1em;
+        transition: all 0.3s ease;
+    }
+    
+    #login-button:hover {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+    }
 
-        #error-message {
-            color: var(--error-color);
-            margin-top: 1rem;
-            height: 1.2rem;
-            visibility: hidden;
-            font-size: 0.9em;
-        }
-
-
-        /* --- 2. ANIMAZIONE MATRIX --- */
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            background-color: var(--background-color);
-            display: none;
-        }
+    #error-message {
+        color: var(--error-color);
+        margin-top: 1rem;
+        height: 1.2rem;
+        visibility: hidden;
+        font-size: 0.9em;
+    }
 
 
-        /* --- 3. CONTENUTO INVITO (TERMINALE) --- */
-        #invitation-container {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 1rem;
-            box-sizing: border-box;
-            width: 100%;
-            animation: fadeInTerminal 1s ease-in;
-        }
+    /* --- 2. ANIMAZIONE MATRIX --- */
+    #matrix-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background-color: var(--background-color);
+        display: none;
+    }
 
-        @keyframes fadeInTerminal {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
 
-        .terminal-window {
-            width: 100%;
-            max-width: 800px;
-            background-color: rgba(20, 25, 35, 0.85);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
-            backdrop-filter: blur(5px);
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-        
-        .terminal-header {
-            background-color: var(--border-color);
-            padding: 0.8rem 1rem;
-            display: flex;
-            align-items: center;
-            font-size: 0.8rem;
-        }
+    /* --- 3. CONTENUTO INVITO (TERMINALE) --- */
+    #invitation-container {
+        display: none;
+        justify-content: center;
+        padding: 2rem 1rem;
+        box-sizing: border-box;
+        width: 100%;
+        animation: fadeInTerminal 1s ease-in;
+        overflow-y: auto; /* ✅ Permette lo scroll verticale */
+    }
 
-        .terminal-header .buttons { display: flex; }
-        .terminal-header .button { width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.5rem; }
-        .button.red { background-color: #ff5f56; }
-        .button.yellow { background-color: #ffbd2e; }
-        .button.green { background-color: #27c93f; }
-        .terminal-header .title { color: var(--text-color); margin: 0 auto; text-align: center; flex-grow: 1; }
+    @keyframes fadeInTerminal {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
 
-        .terminal-body {
-            padding: 1.5rem;
-            font-size: 1.05em;
-            line-height: 1.8;
-            word-wrap: break-word;
-        }
+    .terminal-window {
+        width: 100%;
+        max-width: 800px;
+        background-color: rgba(20, 25, 35, 0.85);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        backdrop-filter: blur(5px);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    
+    .terminal-header {
+        background-color: var(--border-color);
+        padding: 0.8rem 1rem;
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+    }
 
-        .prompt { color: var(--primary-color); }
+    .terminal-header .buttons { display: flex; }
+    .terminal-header .button { width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.5rem; }
+    .button.red { background-color: #ff5f56; }
+    .button.yellow { background-color: #ffbd2e; }
+    .button.green { background-color: #27c93f; }
+    .terminal-header .title { color: var(--text-color); margin: 0 auto; text-align: center; flex-grow: 1; }
 
-        #typing-text {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.4em;
-            border-right: 0.15em solid var(--primary-color);
-            white-space: nowrap;
-            overflow: hidden;
-            margin-bottom: 1.2rem;
-            display: inline-block;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
+    .terminal-body {
+        padding: 1.5rem;
+        font-size: 1.05em;
+        line-height: 1.8;
+        word-wrap: break-word;
+    }
 
-        .info {
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards;
-            animation-delay: 4s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .prompt { color: var(--primary-color); }
 
-        hr {
-            border: 0;
-            border-top: 1px solid var(--border-color);
-            margin: 1.5rem 0;
-        }
-        
-        a.button-link {
-            display: inline-block;
-            margin-top: 1.2rem;
-            padding: 0.7rem 1.2rem;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-            word-break: break-word;
-        }
-        
-        a.button-link:hover {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-            box-shadow: 0 0 15px var(--primary-color);
-        }
+    #typing-text {
+        color: var(--primary-color);
+        font-weight: bold;
+        font-size: 1.4em;
+        border-right: 0.15em solid var(--primary-color);
+        white-space: nowrap;
+        overflow: hidden;
+        margin-bottom: 1.2rem;
+        display: inline-block;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 
-        /* --- MEDIA QUERIES per schermi piccoli (es. smartphone) --- */
-        @media (max-width: 600px) {
-            body { font-size: 14px; }
-            .login-box { padding: 1.5rem; }
-            .login-box h1 { font-size: 1.5em; margin-bottom: 1rem; }
-            .login-box p { font-size: 0.85em; margin-bottom: 1rem; }
-            #password-input { padding: 0.7rem; }
-            #login-button { padding: 0.6rem 1.2rem; }
-            .terminal-body { padding: 1rem; font-size: 1em; }
-            #typing-text { font-size: 1.2em; border-right-width: 0.1em; }
-            .terminal-header .title { font-size: 0.7rem; }
-            hr { margin: 1rem 0; }
-            a.button-link { padding: 0.6rem 1rem; font-size: 0.85em; }
-        }
+    .info {
+        opacity: 0;
+        animation: fadeIn 1s ease-in forwards;
+        animation-delay: 4s;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-    </style>
+    hr {
+        border: 0;
+        border-top: 1px solid var(--border-color);
+        margin: 1.5rem 0;
+    }
+    
+    a.button-link {
+        display: inline-block;
+        margin-top: 1.2rem;
+        padding: 0.7rem 1.2rem;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 0.9em;
+        word-break: break-word;
+    }
+    
+    a.button-link:hover {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        box-shadow: 0 0 15px var(--primary-color);
+    }
+
+    /* --- MEDIA QUERIES per schermi piccoli (es. smartphone) --- */
+    @media (max-width: 600px) {
+        body { font-size: 14px; }
+        .login-box { padding: 1.5rem; }
+        .login-box h1 { font-size: 1.5em; margin-bottom: 1rem; }
+        .login-box p { font-size: 0.85em; margin-bottom: 1rem; }
+        #password-input { padding: 0.7rem; }
+        #login-button { padding: 0.6rem 1.2rem; }
+        .terminal-body { padding: 1rem; font-size: 1em; }
+        #typing-text { font-size: 1.2em; border-right-width: 0.1em; }
+        .terminal-header .title { font-size: 0.7rem; }
+        hr { margin: 1rem 0; }
+        a.button-link { padding: 0.6rem 1rem; font-size: 0.85em; }
+    }
+</style>
+
 </head>
 <body>
 
