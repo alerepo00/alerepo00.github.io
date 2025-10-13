@@ -217,6 +217,18 @@
         color: var(--background-color);
         box-shadow: 0 0 15px var(--primary-color);
     }
+.map-link {
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-left: 0.4rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+    color: var(--primary-color);
+}
+
+.map-link:hover {
+    transform: scale(1.2);
+    color: #00ff99;
+}
 
     /* --- MEDIA QUERIES per schermi piccoli (es. smartphone) --- */
     @media (max-width: 600px) {
@@ -382,31 +394,37 @@
             }, 4000);
         }
         
-        function showInvitation() {
-            invitationContainer.style.display = 'flex';
-            
-            const textToType = "> Missione Compiuta...";
-            const typingElement = document.getElementById('typing-text');
-            typingElement.textContent = '';
-            typingElement.setAttribute('data-text', textToType);
-            
-            let i = 0;
-            function typeWriter() {
-                if (i < textToType.length) {
-                    typingElement.textContent += textToType.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 80);
-                } else {
-                    typingElement.style.borderRight = '0.15em solid var(--primary-color)';
-                    let blinkState = true;
-                    setInterval(() => {
-                        typingElement.style.borderRightColor = blinkState ? 'var(--primary-color)' : 'transparent';
-                        blinkState = !blinkState;
-                    }, 500);
-                }
-            }
-            setTimeout(typeWriter, 500);
+function showInvitation() {
+    invitationContainer.style.display = 'block'; // ✅ era 'flex', meglio block per scroll
+    invitationContainer.style.opacity = '0';
+    invitationContainer.style.transition = 'opacity 1s ease-in';
+    setTimeout(() => {
+        invitationContainer.style.opacity = '1';
+    }, 50);
+
+    const textToType = "> Missione Compiuta...";
+    const typingElement = document.getElementById('typing-text');
+    typingElement.textContent = '';
+    typingElement.setAttribute('data-text', textToType);
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < textToType.length) {
+            typingElement.textContent += textToType.charAt(i);
+            i++;
+            setTimeout(typeWriter, 80);
+        } else {
+            typingElement.style.borderRight = '0.15em solid var(--primary-color)';
+            let blinkState = true;
+            setInterval(() => {
+                typingElement.style.borderRightColor = blinkState ? 'var(--primary-color)' : 'transparent';
+                blinkState = !blinkState;
+            }, 500);
         }
+    }
+    setTimeout(typeWriter, 500);
+}
+
         // --- Script per animazione testo "loading" ---
 const loadingElement = document.getElementById('loading-time');
 if (loadingElement) {
