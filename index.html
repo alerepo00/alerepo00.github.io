@@ -23,6 +23,7 @@
             font-family: 'Fira Code', monospace;
             margin: 0;
             overflow: hidden; /* Nasconde le scrollbar */
+            font-size: 16px; /* Base per unità REM */
         }
 
         /* --- 1. SCHERMATA DI LOGIN --- */
@@ -31,40 +32,48 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            padding: 20px;
+            padding: 1rem; /* Padding responsivo */
             box-sizing: border-box;
             transition: opacity 0.5s ease-out;
+            width: 100%; /* Assicura che occupi tutta la larghezza */
         }
 
         .login-box {
             width: 100%;
             max-width: 400px;
-            padding: 40px;
+            padding: 2.5rem; /* Padding responsivo */
             background-color: rgba(20, 25, 35, 0.85);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
             text-align: center;
+            box-sizing: border-box; /* Include padding nel width/height */
         }
 
         .login-box h1 {
             color: var(--primary-color);
-            font-size: 1.5em;
-            margin-bottom: 25px;
+            font-size: 1.8em; /* Relativo al login-box */
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
+        }
+
+        .login-box p {
+            font-size: 0.9em;
+            margin-bottom: 1.5rem;
         }
 
         #password-input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
             background-color: var(--background-color);
             border: 1px solid var(--border-color);
             color: var(--primary-color);
             font-family: 'Fira Code', monospace;
-            font-size: 1em;
+            font-size: 1em; /* Relativo al login-box */
             text-align: center;
             outline: none;
+            box-sizing: border-box;
         }
         
         #password-input:focus {
@@ -73,12 +82,12 @@
         }
 
         #login-button {
-            padding: 10px 25px;
+            padding: 0.7rem 1.5rem;
             background: transparent;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1em; /* Relativo al login-box */
             transition: all 0.3s ease;
         }
         
@@ -89,9 +98,10 @@
 
         #error-message {
             color: var(--error-color);
-            margin-top: 15px;
-            height: 20px;
+            margin-top: 1rem;
+            height: 1.2rem; /* Spazio fisso per il messaggio di errore */
             visibility: hidden; /* Nascosto di default */
+            font-size: 0.9em;
         }
 
 
@@ -103,6 +113,7 @@
             width: 100%;
             height: 100%;
             z-index: 10;
+            background-color: var(--background-color); /* Assicura sfondo nero/scuro */
             display: none; /* Nascosto di default */
         }
 
@@ -113,9 +124,11 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 1rem; /* Padding responsivo */
             box-sizing: border-box;
+            width: 100%; /* Assicura che occupi tutta la larghezza */
             animation: fadeInTerminal 1s ease-in;
+            overflow-y: auto; /* Permette lo scroll se il contenuto è troppo lungo */
         }
 
         @keyframes fadeInTerminal {
@@ -132,9 +145,149 @@
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
             backdrop-filter: blur(5px);
             overflow: hidden;
+            box-sizing: border-box; /* Include padding nel width/height */
         }
         
-        .terminal-header{background-color:var(--border-color);padding:10px 15px;display:flex;align-items:center;font-size:.9em}.terminal-header .buttons{display:flex}.terminal-header .button{width:12px;height:12px;border-radius:50%;margin-right:8px}.button.red{background-color:#ff5f56}.button.yellow{background-color:#ffbd2e}.button.green{background-color:#27c93f}.terminal-header .title{color:var(--text-color);margin:0 auto}.terminal-body{padding:30px;font-size:1.1em;line-height:1.8}.prompt{color:var(--primary-color)}#typing-text{color:var(--primary-color);font-weight:700;font-size:1.5em;border-right:.15em solid var(--primary-color);white-space:nowrap;overflow:hidden;margin-bottom:20px}.info{opacity:0;animation:fadeIn 1s ease-in forwards;animation-delay:4s}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}hr{border:0;border-top:1px solid var(--border-color);margin:25px 0}a.button-link{display:inline-block;margin-top:20px;padding:10px 20px;border:1px solid var(--primary-color);color:var(--primary-color);text-decoration:none;transition:all .3s ease}a.button-link:hover{background-color:var(--primary-color);color:var(--background-color);box-shadow:0 0 15px var(--primary-color)}
+        .terminal-header {
+            background-color: var(--border-color);
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .terminal-header .buttons {
+            display: flex;
+        }
+
+        .terminal-header .button {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .button.red { background-color: #ff5f56; }
+        .button.yellow { background-color: #ffbd2e; }
+        .button.green { background-color: #27c93f; }
+        
+        .terminal-header .title {
+            color: var(--text-color);
+            margin: 0 auto;
+            text-align: center;
+            flex-grow: 1; /* Permette al titolo di occupare spazio */
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-size: 1.05em; /* Relativo al body, quindi 16px * 1.05 = ~16.8px */
+            line-height: 1.8;
+            word-wrap: break-word; /* Importante per testi lunghi su mobile */
+        }
+
+        .prompt {
+            color: var(--primary-color);
+        }
+
+        #typing-text {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.4em; /* Relativo al terminal-body */
+            border-right: 0.15em solid var(--primary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+            display: inline-block; /* Per far funzionare il typing effect con width */
+            max-width: 100%; /* Assicura che non vada oltre il contenitore */
+            box-sizing: border-box;
+        }
+
+        .info {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 4s; /* Ritardo per far apparire le info dopo la digitazione */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+        
+        a.button-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 0.7rem 1.2rem;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9em; /* Relativo al terminal-body */
+            word-break: break-word; /* Assicura che il testo del bottone si adatti */
+        }
+        
+        a.button-link:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* --- MEDIA QUERIES per schermi piccoli (es. smartphone) --- */
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px; /* Dimensione base più piccola su mobile */
+            }
+
+            .login-box {
+                padding: 1.5rem;
+            }
+
+            .login-box h1 {
+                font-size: 1.5em;
+                margin-bottom: 1rem;
+            }
+
+            .login-box p {
+                font-size: 0.85em;
+                margin-bottom: 1rem;
+            }
+
+            #password-input {
+                padding: 0.7rem;
+            }
+
+            #login-button {
+                padding: 0.6rem 1.2rem;
+            }
+
+            .terminal-body {
+                padding: 1rem;
+                font-size: 1em; /* Relativo alla nuova base di 14px */
+            }
+
+            #typing-text {
+                font-size: 1.2em;
+                border-right-width: 0.1em; /* Cursore più sottile */
+            }
+
+            .terminal-header .title {
+                font-size: 0.7rem;
+            }
+            
+            hr {
+                margin: 1rem 0;
+            }
+
+            a.button-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.85em;
+            }
+        }
 
     </style>
 </head>
@@ -206,6 +359,12 @@
 
         const matrixCanvas = document.getElementById('matrix-canvas');
         const invitationContainer = document.getElementById('invitation-container');
+        const ctx = matrixCanvas.getContext('2d');
+
+        let rainDrops = [];
+        let fontSize = 16;
+        let columns;
+        let matrixInterval; // Variabile per tenere traccia dell'intervallo Matrix
 
         // Gestisce il click sul bottone o la pressione di Invio
         loginButton.addEventListener('click', checkPassword);
@@ -215,66 +374,69 @@
             }
         });
 
+        // ===========================================
+        // Funzioni per l'animazione Matrix
+        // ===========================================
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        function initializeMatrix() {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            columns = matrixCanvas.width / fontSize;
+            rainDrops = [];
+            for (let x = 0; x < columns; x++) {
+                rainDrops[x] = 1;
+            }
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+            ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            ctx.fillStyle = '#00ff41'; // Colore Matrix
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        // Re-inizializza Matrix se la finestra viene ridimensionata
+        window.addEventListener('resize', initializeMatrix);
+        
         function checkPassword() {
             if (passwordInput.value === CORRECT_PASSWORD) {
-                // Password corretta: avvia la sequenza
                 errorMessage.style.visibility = 'hidden';
                 loginContainer.style.opacity = '0';
                 
                 setTimeout(() => {
                     loginContainer.style.display = 'none';
-                    startMatrix();
-                }, 500); // Attende la fine della transizione di opacità
+                    startMatrixSequence();
+                }, 500); 
 
             } else {
-                // Password sbagliata
                 errorMessage.style.visibility = 'visible';
                 passwordInput.value = '';
             }
         }
 
-        function startMatrix() {
+        function startMatrixSequence() {
             matrixCanvas.style.display = 'block';
-            const ctx = matrixCanvas.getContext('2d');
-            
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-
-            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const alphabet = katakana + latin + nums;
-
-            const fontSize = 16;
-            const columns = matrixCanvas.width / fontSize;
-            const rainDrops = [];
-
-            for (let x = 0; x < columns; x++) {
-                rainDrops[x] = 1;
-            }
-
-            const draw = () => {
-                ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
-                ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-                ctx.fillStyle = '#00ff41'; // Colore Matrix
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < rainDrops.length; i++) {
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                    if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
-                        rainDrops[i] = 0;
-                    }
-                    rainDrops[i]++;
-                }
-            };
-
-            const matrixInterval = setInterval(draw, 30);
+            initializeMatrix(); // Inizializza Matrix con le dimensioni correnti
+            matrixInterval = setInterval(drawMatrix, 30); // Avvia l'intervallo
 
             // Ferma l'animazione Matrix e mostra l'invito dopo 4 secondi
             setTimeout(() => {
-                clearInterval(matrixInterval);
+                clearInterval(matrixInterval); // Ferma l'intervallo
                 matrixCanvas.style.display = 'none';
                 showInvitation();
             }, 4000); // Durata dell'animazione Matrix
@@ -283,7 +445,6 @@
         function showInvitation() {
             invitationContainer.style.display = 'flex';
             
-            // Avvia l'animazione di scrittura del testo
             const textToType = "> Missione Compiuta...";
             const typingElement = document.getElementById('typing-text');
             typingElement.textContent = '';
@@ -296,10 +457,11 @@
                     i++;
                     setTimeout(typeWriter, 80);
                 } else {
-                    // Aggiunge il cursore lampeggiante alla fine
                     typingElement.style.borderRight = '0.15em solid var(--primary-color)';
+                    let blinkState = true;
                     setInterval(() => {
-                        typingElement.style.borderRightColor = (typingElement.style.borderRightColor === 'transparent') ? 'var(--primary-color)' : 'transparent';
+                        typingElement.style.borderRightColor = blinkState ? 'var(--primary-color)' : 'transparent';
+                        blinkState = !blinkState;
                     }, 500);
                 }
             }
