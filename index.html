@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Richiesto: Invito Riservato</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- STILE GENERALE --- */
+        :root {
+            --primary-color: #00ff41; /* Verde "hacker" */
+            --background-color: #0d1117;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --error-color: #ff5f56;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            margin: 0;
+            overflow: hidden; /* Nasconde le scrollbar */
+        }
+
+        /* --- 1. SCHERMATA DI LOGIN --- */
+        #login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background-color: rgba(20, 25, 35, 0.85);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 1em;
+            text-align: center;
+            outline: none;
+        }
+        
+        #password-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        #login-button {
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        #login-button:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        #error-message {
+            color: var(--error-color);
+            margin-top: 15px;
+            height: 20px;
+            visibility: hidden; /* Nascosto di default */
+        }
+
+
+        /* --- 2. ANIMAZIONE MATRIX --- */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: none; /* Nascosto di default */
+        }
+
+
+        /* --- 3. CONTENUTO INVITO (TERMINALE) --- */
+        #invitation-container {
+            display: none; /* Nascosto di default */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            animation: fadeInTerminal 1s ease-in;
+        }
+
+        @keyframes fadeInTerminal {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .terminal-window {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(20, 25, 35, 0.85);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+        
+        .terminal-header{background-color:var(--border-color);padding:10px 15px;display:flex;align-items:center;font-size:.9em}.terminal-header .buttons{display:flex}.terminal-header .button{width:12px;height:12px;border-radius:50%;margin-right:8px}.button.red{background-color:#ff5f56}.button.yellow{background-color:#ffbd2e}.button.green{background-color:#27c93f}.terminal-header .title{color:var(--text-color);margin:0 auto}.terminal-body{padding:30px;font-size:1.1em;line-height:1.8}.prompt{color:var(--primary-color)}#typing-text{color:var(--primary-color);font-weight:700;font-size:1.5em;border-right:.15em solid var(--primary-color);white-space:nowrap;overflow:hidden;margin-bottom:20px}.info{opacity:0;animation:fadeIn 1s ease-in forwards;animation-delay:4s}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}hr{border:0;border-top:1px solid var(--border-color);margin:25px 0}a.button-link{display:inline-block;margin-top:20px;padding:10px 20px;border:1px solid var(--primary-color);color:var(--primary-color);text-decoration:none;transition:all .3s ease}a.button-link:hover{background-color:var(--primary-color);color:var(--background-color);box-shadow:0 0 15px var(--primary-color)}
+
+    </style>
+</head>
+<body>
+
+    <div id="login-container">
+        <div class="login-box">
+            <h1>[ Accesso Riservato ]</h1>
+            <p>Inserisci la chiave d'accesso per decifrare l'invito.</p>
+            <input type="password" id="password-input" placeholder="********">
+            <button id="login-button">AUTENTICA</button>
+            <p id="error-message">> Accesso Negato <</p>
+        </div>
+    </div>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <div id="invitation-container">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="buttons">
+                    <span class="button red"></span>
+                    <span class="button yellow"></span>
+                    <span class="button green"></span>
+                </div>
+                <div class="title">/usr/bin/invitation</div>
+            </div>
+            <div class="terminal-body">
+                <div id="typing-text" data-text="> Missione Compiuta..."></div>
+                
+                <div class="info">
+                    <p><span class="prompt">$</span> Decriptando i dettagli dell'evento...</p>
+                    <p>
+                        Sono felicissimo di invitarti alla mia discussione di Laurea Magistrale in <br>
+                        <strong>Ingegneria Informatica - Cybersecurity</strong>.
+                    </p>
+                    <hr>
+                    <p><span class="prompt">[+] CANDIDATO:</span> [IL TUO NOME E COGNOME]</p>
+                    <p><span class="prompt">[+] DATA:</span> [DATA DELLA LAUREA]</p>
+                    <p><span class="prompt">[+] ORA:</span> [ORARIO DELLA DISCUSSIONE]</p>
+                    <p><span class="prompt">[+] LUOGO:</span> [AULA E INDIRIZZO DELL'UNIVERSITÀ]</p>
+                    <hr>
+                    <p>
+                        Dopo la proclamazione, ci sarà un rinfresco per festeggiare insieme!<br>
+                        <span class="prompt">[+] LOCATION FESTA:</span> [INDIRIZZO DEL RINFRESCO]
+                    </p>
+                    <a href="https://wa.me/39TUONUMERO?text=Ciao!%20Confermo%20la%20mia%20presenza%20alla%20tua%20laurea!" target="_blank" class="button-link">
+                        > Conferma la tua presenza [RSVP]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- JAVASCRIPT PRINCIPALE ---
+
+        // ===================================
+        // MODIFICA QUI LA TUA PASSWORD
+        // ===================================
+        const CORRECT_PASSWORD = "laurea"; // <-- Cambia questa!
+        // ===================================
+
+        const loginContainer = document.getElementById('login-container');
+        const passwordInput = document.getElementById('password-input');
+        const loginButton = document.getElementById('login-button');
+        const errorMessage = document.getElementById('error-message');
+
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const invitationContainer = document.getElementById('invitation-container');
+
+        // Gestisce il click sul bottone o la pressione di Invio
+        loginButton.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+
+        function checkPassword() {
+            if (passwordInput.value === CORRECT_PASSWORD) {
+                // Password corretta: avvia la sequenza
+                errorMessage.style.visibility = 'hidden';
+                loginContainer.style.opacity = '0';
+                
+                setTimeout(() => {
+                    loginContainer.style.display = 'none';
+                    startMatrix();
+                }, 500); // Attende la fine della transizione di opacità
+
+            } else {
+                // Password sbagliata
+                errorMessage.style.visibility = 'visible';
+                passwordInput.value = '';
+            }
+        }
+
+        function startMatrix() {
+            matrixCanvas.style.display = 'block';
+            const ctx = matrixCanvas.getContext('2d');
+            
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+
+            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nums = '0123456789';
+            const alphabet = katakana + latin + nums;
+
+            const fontSize = 16;
+            const columns = matrixCanvas.width / fontSize;
+            const rainDrops = [];
+
+            for (let x = 0; x < columns; x++) {
+                rainDrops[x] = 1;
+            }
+
+            const draw = () => {
+                ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+                ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+                ctx.fillStyle = '#00ff41'; // Colore Matrix
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                    if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            };
+
+            const matrixInterval = setInterval(draw, 30);
+
+            // Ferma l'animazione Matrix e mostra l'invito dopo 4 secondi
+            setTimeout(() => {
+                clearInterval(matrixInterval);
+                matrixCanvas.style.display = 'none';
+                showInvitation();
+            }, 4000); // Durata dell'animazione Matrix
+        }
+        
+        function showInvitation() {
+            invitationContainer.style.display = 'flex';
+            
+            // Avvia l'animazione di scrittura del testo
+            const textToType = "> Missione Compiuta...";
+            const typingElement = document.getElementById('typing-text');
+            typingElement.textContent = '';
+            typingElement.setAttribute('data-text', textToType);
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typingElement.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 80);
+                } else {
+                    // Aggiunge il cursore lampeggiante alla fine
+                    typingElement.style.borderRight = '0.15em solid var(--primary-color)';
+                    setInterval(() => {
+                        typingElement.style.borderRightColor = (typingElement.style.borderRightColor === 'transparent') ? 'var(--primary-color)' : 'transparent';
+                    }, 500);
+                }
+            }
+            setTimeout(typeWriter, 500);
+        }
+
+    </script>
+
+</body>
+</html>
