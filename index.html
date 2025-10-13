@@ -1,468 +1,462 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso Richiesto: Invito Riservato</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-   <style>
-       .map-frame {
-  margin-top: 0.5rem;
-  margin-bottom: 1.2rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,255,65,0.15);
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accesso Richiesto: Invito Riservato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
 
-    /* --- STILE GENERALE --- */
+  <style>
+    /* --- VARIABILI DI COLORE --- */
     :root {
-        --primary-color: #00ff41; /* Verde "hacker" */
-        --background-color: #0d1117;
-        --text-color: #c9d1d9;
-        --border-color: #30363d;
-        --error-color: #ff5f56;
+      --primary-color: #00ff41;
+      --background-color: #0d1117;
+      --text-color: #c9d1d9;
+      --border-color: #30363d;
+      --error-color: #ff5f56;
     }
 
+    /* --- STRUTTURA GENERALE --- */
     body {
-        background-color: var(--background-color);
-        color: var(--text-color);
-        font-family: 'Fira Code', monospace;
-        margin: 0;
-        overflow-x: hidden; /* Nasconde scroll orizzontale ma permette quello verticale */
-        font-size: 16px;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font-family: "Fira Code", monospace;
+      margin: 0;
+      overflow-x: hidden;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* --- 1. SCHERMATA DI LOGIN --- */
+    /* --- LOGIN --- */
     #login-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 1rem;
-        box-sizing: border-box;
-        transition: opacity 0.5s ease-out;
-        width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+      width: 100%;
+      transition: opacity 0.5s ease-out;
+      box-sizing: border-box;
     }
 
     .login-box {
-        width: 100%;
-        max-width: 400px;
-        padding: 2.5rem;
-        background-color: rgba(20, 25, 35, 0.85);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
-        text-align: center;
-        box-sizing: border-box;
+      width: 100%;
+      max-width: 400px;
+      padding: 2.5rem;
+      background-color: rgba(20, 25, 35, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+      text-align: center;
     }
 
     .login-box h1 {
-        color: var(--primary-color);
-        font-size: 1.8em;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
+      color: var(--primary-color);
+      font-size: 1.8em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
     }
 
     .login-box p {
-        font-size: 0.9em;
-        margin-bottom: 1.5rem;
+      font-size: 0.9em;
+      margin-bottom: 1.5rem;
     }
 
     #password-input {
-        width: 100%;
-        padding: 0.8rem;
-        margin-bottom: 1.2rem;
-        background-color: var(--background-color);
-        border: 1px solid var(--border-color);
-        color: var(--primary-color);
-        font-family: 'Fira Code', monospace;
-        font-size: 1em;
-        text-align: center;
-        outline: none;
-        box-sizing: border-box;
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1.2rem;
+      background-color: var(--background-color);
+      border: 1px solid var(--border-color);
+      color: var(--primary-color);
+      font-family: "Fira Code", monospace;
+      font-size: 1em;
+      text-align: center;
+      outline: none;
     }
-    
+
     #password-input:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
     }
 
     #login-button {
-        padding: 0.7rem 1.5rem;
-        background: transparent;
-        border: 1px solid var(--primary-color);
-        color: var(--primary-color);
-        cursor: pointer;
-        font-size: 1em;
-        transition: all 0.3s ease;
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s ease;
     }
-    
+
     #login-button:hover {
-        background-color: var(--primary-color);
-        color: var(--background-color);
+      background-color: var(--primary-color);
+      color: var(--background-color);
     }
 
     #error-message {
-        color: var(--error-color);
-        margin-top: 1rem;
-        height: 1.2rem;
-        visibility: hidden;
-        font-size: 0.9em;
+      color: var(--error-color);
+      margin-top: 1rem;
+      height: 1.2rem;
+      visibility: hidden;
+      font-size: 0.9em;
     }
 
-
-    /* --- 2. ANIMAZIONE MATRIX --- */
+    /* --- SFONDO MATRIX --- */
     #matrix-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-        background-color: var(--background-color);
-        display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      background-color: var(--background-color);
+      display: none;
     }
 
-
-    /* --- 3. CONTENUTO INVITO (TERMINALE) --- */
+    /* --- CONTENUTO INVITO --- */
     #invitation-container {
-        display: none;
-        justify-content: center;
-        padding: 2rem 1rem;
-        box-sizing: border-box;
-        width: 100%;
-        animation: fadeInTerminal 1s ease-in;
-        overflow-y: auto; /* ✅ Permette lo scroll verticale */
+      display: none;
+      width: 100%;
+      justify-content: center;
+      padding: 2rem 1rem;
+      box-sizing: border-box;
+      animation: fadeInTerminal 1s ease-in;
     }
 
     @keyframes fadeInTerminal {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .terminal-window {
-        width: 100%;
-        max-width: 800px;
-        background-color: rgba(20, 25, 35, 0.85);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
-        backdrop-filter: blur(5px);
-        overflow: hidden;
-        box-sizing: border-box;
-    }
-    
-    .terminal-header {
-        background-color: var(--border-color);
-        padding: 0.8rem 1rem;
-        display: flex;
-        align-items: center;
-        font-size: 0.8rem;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: rgba(20, 25, 35, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+      overflow: hidden;
     }
 
-    .terminal-header .buttons { display: flex; }
-    .terminal-header .button { width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.5rem; }
-    .button.red { background-color: #ff5f56; }
-    .button.yellow { background-color: #ffbd2e; }
-    .button.green { background-color: #27c93f; }
-    .terminal-header .title { color: var(--text-color); margin: 0 auto; text-align: center; flex-grow: 1; }
+    .terminal-header {
+      background-color: var(--border-color);
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .terminal-header .buttons {
+      display: flex;
+    }
+
+    .terminal-header .button {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+
+    .button.red {
+      background-color: #ff5f56;
+    }
+    .button.yellow {
+      background-color: #ffbd2e;
+    }
+    .button.green {
+      background-color: #27c93f;
+    }
+
+    .terminal-header .title {
+      color: var(--text-color);
+      margin: 0 auto;
+      text-align: center;
+      flex-grow: 1;
+    }
 
     .terminal-body {
-        padding: 1.5rem;
-        font-size: 1.05em;
-        line-height: 1.8;
-        word-wrap: break-word;
+      padding: 1.5rem 2rem;
+      font-size: 1.05em;
+      line-height: 1.8;
     }
 
-    .prompt { color: var(--primary-color); }
+    .prompt {
+      color: var(--primary-color);
+    }
 
     #typing-text {
-        color: var(--primary-color);
-        font-weight: bold;
-        font-size: 1.4em;
-        border-right: 0.15em solid var(--primary-color);
-        white-space: nowrap;
-        overflow: hidden;
-        margin-bottom: 1.2rem;
-        display: inline-block;
-        max-width: 100%;
-        box-sizing: border-box;
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 1.4em;
+      border-right: 0.15em solid var(--primary-color);
+      white-space: nowrap;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      display: inline-block;
     }
 
     .info {
-        opacity: 0;
-        animation: fadeIn 1s ease-in forwards;
-        animation-delay: 4s;
+      opacity: 0;
+      animation: fadeIn 1s ease-in forwards;
+      animation-delay: 4s;
     }
-    
+
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     hr {
-        border: 0;
-        border-top: 1px solid var(--border-color);
-        margin: 1.5rem 0;
+      border: 0;
+      border-top: 1px solid var(--border-color);
+      margin: 1.5rem 0;
     }
-    
-    a.button-link {
-        display: inline-block;
-        margin-top: 1.2rem;
-        padding: 0.7rem 1.2rem;
-        border: 1px solid var(--primary-color);
-        color: var(--primary-color);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-size: 0.9em;
-        word-break: break-word;
-    }
-    
-    a.button-link:hover {
-        background-color: var(--primary-color);
-        color: var(--background-color);
-        box-shadow: 0 0 15px var(--primary-color);
-    }
-.map-link {
-    text-decoration: none;
-    font-size: 1.2em;
-    margin-left: 0.4rem;
-    transition: transform 0.2s ease, color 0.2s ease;
-    color: var(--primary-color);
-}
 
-.map-link:hover {
-    transform: scale(1.2);
-    color: #00ff99;
-}
+    .map-frame {
+      display: flex;
+      justify-content: center;
+      margin: 0.8rem 0 1.2rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+    }
 
-    /* --- MEDIA QUERIES per schermi piccoli (es. smartphone) --- */
+    .map-frame iframe {
+      width: 90%;
+      max-width: 700px;
+      height: 250px;
+      border: 0;
+    }
+
+    /* --- RESPONSIVE --- */
     @media (max-width: 600px) {
-        body { font-size: 14px; }
-        .login-box { padding: 1.5rem; }
-        .login-box h1 { font-size: 1.5em; margin-bottom: 1rem; }
-        .login-box p { font-size: 0.85em; margin-bottom: 1rem; }
-        #password-input { padding: 0.7rem; }
-        #login-button { padding: 0.6rem 1.2rem; }
-        .terminal-body { padding: 1rem; font-size: 1em; }
-        #typing-text { font-size: 1.2em; border-right-width: 0.1em; }
-        .terminal-header .title { font-size: 0.7rem; }
-        hr { margin: 1rem 0; }
-        a.button-link { padding: 0.6rem 1rem; font-size: 0.85em; }
+      body {
+        font-size: 14px;
+      }
+      .terminal-body {
+        padding: 1rem;
+      }
+      .map-frame iframe {
+        width: 100%;
+        height: 200px;
+      }
     }
-</style>
-
+  </style>
 </head>
+
 <body>
-
-    <div id="login-container">
-        <div class="login-box">
-            <h1>[ Accesso Riservato ]</h1>
-            <p>Inserisci la chiave d'accesso per decifrare l'invito.</p>
-            <input type="password" id="password-input" placeholder="********">
-            <button id="login-button">AUTENTICA</button>
-            <p id="error-message">> Accesso Negato <</p>
-        </div>
+  <!-- LOGIN -->
+  <div id="login-container">
+    <div class="login-box">
+      <h1>[ Accesso Riservato ]</h1>
+      <p>Inserisci la chiave d'accesso per decifrare l'invito.</p>
+      <input type="password" id="password-input" placeholder="********" />
+      <button id="login-button">AUTENTICA</button>
+      <p id="error-message">> Accesso Negato <</p>
     </div>
+  </div>
 
-    <canvas id="matrix-canvas"></canvas>
+  <canvas id="matrix-canvas"></canvas>
 
-    <div id="invitation-container">
-        <div class="terminal-window">
-            <div class="terminal-header">
-                <div class="buttons">
-                    <span class="button red"></span>
-                    <span class="button yellow"></span>
-                    <span class="button green"></span>
-                </div>
-                <div class="title">/usr/bin/invitation</div>
-            </div>
-            <div class="terminal-body">
-                <div id="typing-text" data-text="> Missione Compiuta..."></div>
-                
-                <div class="info">
-                    <p><span class="prompt">$</span> Decriptando i dettagli dell'evento...</p>
-                    <p>
-                        Sono felicissimo di invitarti alla mia discussione di Laurea Magistrale in <br>
-                        <strong>Ingegneria Informatica - Cybersecurity</strong>.
-                    </p>
-                    <hr>
-                    <p><span class="prompt">[+] DATA:</span> 24/10/2025 </p>
-                    <p><span class="prompt">[+] ORA:</span> <span id="loading-time">Caricamento...</span></p>
-                    <p><span class="prompt">[+] LUOGO:</span> [IN ATTESA DI COORDINATE]</p>
-                    <hr>
-                    <p>
-                        Dopo la proclamazione, ci sarà un rinfresco per festeggiare insieme!<br>
-                         <span class="prompt">[+] LUOGO:</span>
-                          Piazzale Duca d'Aosta
-                         <div class="map-frame">
-                             
-                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5636.33027775661!2d7.6583728351120675!3d45.06216103559375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886d17f234b019%3A0x75ba9b169f821321!2sPiazzale%20Duca%20d&#39;Aosta%2C%2010129%20Torino%20TO!5e0!3m2!1sit!2sit!4v1760379396786!5m2!1sit!2sit"
-                             width="70%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-                             referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-
-                    </p>
-                    <hr>
-                    <p><span class="prompt">[+] CENA:</span> Ristorante "La Piola" </p>
-                    <p><span class="prompt">[+] ORA:</span> 20:30</p>
-                    <p><span class="prompt">[+] INDIRIZZO:</span> Corso Vinzaglio, 3</p>
-                    
-                    <div class="map-frame">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5635.350939801301!2d7.6607803935791!3d45.07209400000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886d0e70f5134b%3A0x4a90f65c045f2972!2sLa%20Piola!5e0!3m2!1sit!2sit!4v1760378879511!5m2!1sit!2sit"
-                        width="70%"
-                        height="200"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                      </iframe>
-                    </div>
-
-
-                </div>
-            </div>
+  <!-- INVITO -->
+  <div id="invitation-container">
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="buttons">
+          <span class="button red"></span>
+          <span class="button yellow"></span>
+          <span class="button green"></span>
         </div>
+        <div class="title">/usr/bin/invitation</div>
+      </div>
+
+      <div class="terminal-body">
+        <div id="typing-text" data-text="> Missione Compiuta..."></div>
+
+        <div class="info">
+          <p><span class="prompt">$</span> Decriptando i dettagli dell'evento...</p>
+          <p>
+            Sono felicissimo di invitarti alla mia discussione di Laurea Magistrale in <br />
+            <strong>Ingegneria Informatica - Cybersecurity</strong>.
+          </p>
+          <hr />
+          <p><span class="prompt">[+] DATA:</span> 24/10/2025</p>
+          <p><span class="prompt">[+] ORA:</span> <span id="loading-time">Caricamento...</span></p>
+          <p><span class="prompt">[+] LUOGO:</span> [IN ATTESA DI COORDINATE]</p>
+          <hr />
+          <p>
+            Dopo la proclamazione, ci sarà un rinfresco per festeggiare insieme! <br />
+            <span class="prompt">[+] LUOGO:</span> Piazzale Duca d'Aosta
+          </p>
+
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5636.33027775661!2d7.6583728351120675!3d45.06216103559375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886d17f234b019%3A0x75ba9b169f821321!2sPiazzale%20Duca%20d&#39;Aosta%2C%2010129%20Torino%20TO!5e0!3m2!1sit!2sit!4v1760379396786!5m2!1sit!2sit"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <hr />
+          <p><span class="prompt">[+] CENA:</span> Ristorante "La Piola"</p>
+          <p><span class="prompt">[+] ORA:</span> 20:30</p>
+          <p><span class="prompt">[+] INDIRIZZO:</span> Corso Vinzaglio, 3</p>
+
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5635.350939801301!2d7.6607803935791!3d45.07209400000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886d0e70f5134b%3A0x4a90f65c045f2972!2sLa%20Piola!5e0!3m2!1sit!2sit!4v1760378879511!5m2!1sit!2sit"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
+  <!-- SCRIPT -->
+  <script>
+    const CORRECT_PASSWORD = "laurea";
 
-    <script>
-        // --- JAVASCRIPT PRINCIPALE ---
+    const loginContainer = document.getElementById("login-container");
+    const passwordInput = document.getElementById("password-input");
+    const loginButton = document.getElementById("login-button");
+    const errorMessage = document.getElementById("error-message");
 
-        // ===================================
-        // MODIFICA QUI LA TUA PASSWORD
-        // ===================================
-        const CORRECT_PASSWORD = "laurea"; // <-- Cambia questa!
-        // ===================================
+    const matrixCanvas = document.getElementById("matrix-canvas");
+    const invitationContainer = document.getElementById("invitation-container");
+    const ctx = matrixCanvas.getContext("2d");
 
-        const loginContainer = document.getElementById('login-container');
-        const passwordInput = document.getElementById('password-input');
-        const loginButton = document.getElementById('login-button');
-        const errorMessage = document.getElementById('error-message');
+    let rainDrops = [];
+    let fontSize = 16;
+    let columns;
+    let matrixInterval;
 
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        const invitationContainer = document.getElementById('invitation-container');
-        const ctx = matrixCanvas.getContext('2d');
+    loginButton.addEventListener("click", checkPassword);
+    passwordInput.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") checkPassword();
+    });
 
-        let rainDrops = [];
-        let fontSize = 16;
-        let columns;
-        let matrixInterval;
+    const chars =
+      "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-        loginButton.addEventListener('click', checkPassword);
-        passwordInput.addEventListener('keyup', function(event) {
-            if (event.key === "Enter") {
-                checkPassword();
-            }
-        });
-
-        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const nums = '0123456789';
-        const alphabet = katakana + latin + nums;
-
-        function initializeMatrix() {
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-            columns = matrixCanvas.width / fontSize;
-            rainDrops = [];
-            for (let x = 0; x < columns; x++) {
-                rainDrops[x] = 1;
-            }
-        }
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
-            ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            ctx.fillStyle = '#00ff41';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        }
-
-        window.addEventListener('resize', initializeMatrix);
-        
-        function checkPassword() {
-            if (passwordInput.value === CORRECT_PASSWORD) {
-                errorMessage.style.visibility = 'hidden';
-                loginContainer.style.opacity = '0';
-                
-                setTimeout(() => {
-                    loginContainer.style.display = 'none';
-                    startMatrixSequence();
-                }, 500); 
-
-            } else {
-                errorMessage.style.visibility = 'visible';
-                passwordInput.value = '';
-            }
-        }
-
-        function startMatrixSequence() {
-            matrixCanvas.style.display = 'block';
-            initializeMatrix();
-            matrixInterval = setInterval(drawMatrix, 30);
-
-            setTimeout(() => {
-                clearInterval(matrixInterval);
-                matrixCanvas.style.display = 'none';
-                showInvitation();
-            }, 4000);
-        }
-        
-function showInvitation() {
-    invitationContainer.style.display = 'block'; // ✅ era 'flex', meglio block per scroll
-    invitationContainer.style.opacity = '0';
-    invitationContainer.style.transition = 'opacity 1s ease-in';
-    setTimeout(() => {
-        invitationContainer.style.opacity = '1';
-    }, 50);
-
-    const textToType = "> Missione Compiuta...";
-    const typingElement = document.getElementById('typing-text');
-    typingElement.textContent = '';
-    typingElement.setAttribute('data-text', textToType);
-    
-    let i = 0;
-    function typeWriter() {
-        if (i < textToType.length) {
-            typingElement.textContent += textToType.charAt(i);
-            i++;
-            setTimeout(typeWriter, 80);
-        } else {
-            typingElement.style.borderRight = '0.15em solid var(--primary-color)';
-            let blinkState = true;
-            setInterval(() => {
-                typingElement.style.borderRightColor = blinkState ? 'var(--primary-color)' : 'transparent';
-                blinkState = !blinkState;
-            }, 500);
-        }
+    function initializeMatrix() {
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+      columns = matrixCanvas.width / fontSize;
+      rainDrops = [];
+      for (let x = 0; x < columns; x++) rainDrops[x] = 1;
     }
-    setTimeout(typeWriter, 500);
-}
 
-        // --- Script per animazione testo "loading" ---
-const loadingElement = document.getElementById('loading-time');
-if (loadingElement) {
-    const loadingStates = ['Elaborazione.', 'Elaborazione..', 'Elaborazione...'];
-    let currentState = 0;
-    setInterval(() => {
-        loadingElement.textContent = loadingStates[currentState];
-        currentState = (currentState + 1) % loadingStates.length;
-    }, 600); // Cambia testo ogni 600ms
-}
-    </script>
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(13, 17, 23, 0.05)";
+      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      ctx.fillStyle = "#00ff41";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < rainDrops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+        if (
+          rainDrops[i] * fontSize > matrixCanvas.height &&
+          Math.random() > 0.975
+        )
+          rainDrops[i] = 0;
+        rainDrops[i]++;
+      }
+    }
+
+    window.addEventListener("resize", initializeMatrix);
+
+    function checkPassword() {
+      if (passwordInput.value === CORRECT_PASSWORD) {
+        errorMessage.style.visibility = "hidden";
+        loginContainer.style.opacity = "0";
+        setTimeout(() => {
+          loginContainer.style.display = "none";
+          startMatrixSequence();
+        }, 500);
+      } else {
+        errorMessage.style.visibility = "visible";
+        passwordInput.value = "";
+      }
+    }
+
+    function startMatrixSequence() {
+      matrixCanvas.style.display = "block";
+      initializeMatrix();
+      matrixInterval = setInterval(drawMatrix, 30);
+      setTimeout(() => {
+        clearInterval(matrixInterval);
+        matrixCanvas.style.display = "none";
+        showInvitation();
+      }, 4000);
+    }
+
+    function showInvitation() {
+      invitationContainer.style.display = "block";
+      invitationContainer.style.opacity = "0";
+      invitationContainer.style.transition = "opacity 1s ease-in";
+      setTimeout(() => {
+        invitationContainer.style.opacity = "1";
+      }, 50);
+
+      const textToType = "> Missione Compiuta...";
+      const typingElement = document.getElementById("typing-text");
+      typingElement.textContent = "";
+      let i = 0;
+      function typeWriter() {
+        if (i < textToType.length) {
+          typingElement.textContent += textToType.charAt(i);
+          i++;
+          setTimeout(typeWriter, 80);
+        } else {
+          let blinkState = true;
+          setInterval(() => {
+            typingElement.style.borderRightColor = blinkState
+              ? "var(--primary-color)"
+              : "transparent";
+            blinkState = !blinkState;
+          }, 500);
+        }
+      }
+      setTimeout(typeWriter, 500);
+    }
+
+    const loadingElement = document.getElementById("loading-time");
+    if (loadingElement) {
+      const states = ["Elaborazione.", "Elaborazione..", "Elaborazione..."];
+      let current = 0;
+      setInterval(() => {
+        loadingElement.textContent = states[current];
+        current = (current + 1) % states.length;
+      }, 600);
+    }
+  </script>
 </body>
 </html>
