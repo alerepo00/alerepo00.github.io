@@ -22,7 +22,7 @@
             color: var(--text-color);
             font-family: 'Fira Code', monospace;
             margin: 0;
-            overflow: hidden; /* Nasconde le scrollbar */
+            overflow-x: hidden; /* Permette scroll verticale, nasconde quello orizzontale */
             font-size: 16px; /* Base per unità REM */
         }
 
@@ -31,28 +31,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 1rem; /* Padding responsivo */
+            min-height: 100vh; /* MODIFICA: Permette al contenitore di crescere */
+            padding: 1rem;
             box-sizing: border-box;
             transition: opacity 0.5s ease-out;
-            width: 100%; /* Assicura che occupi tutta la larghezza */
+            width: 100%;
         }
 
         .login-box {
             width: 100%;
             max-width: 400px;
-            padding: 2.5rem; /* Padding responsivo */
+            padding: 2.5rem;
             background-color: rgba(20, 25, 35, 0.85);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
             text-align: center;
-            box-sizing: border-box; /* Include padding nel width/height */
+            box-sizing: border-box;
         }
 
         .login-box h1 {
             color: var(--primary-color);
-            font-size: 1.8em; /* Relativo al login-box */
+            font-size: 1.8em;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
         }
@@ -70,7 +70,7 @@
             border: 1px solid var(--border-color);
             color: var(--primary-color);
             font-family: 'Fira Code', monospace;
-            font-size: 1em; /* Relativo al login-box */
+            font-size: 1em;
             text-align: center;
             outline: none;
             box-sizing: border-box;
@@ -87,7 +87,7 @@
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
             cursor: pointer;
-            font-size: 1em; /* Relativo al login-box */
+            font-size: 1em;
             transition: all 0.3s ease;
         }
         
@@ -99,8 +99,8 @@
         #error-message {
             color: var(--error-color);
             margin-top: 1rem;
-            height: 1.2rem; /* Spazio fisso per il messaggio di errore */
-            visibility: hidden; /* Nascosto di default */
+            height: 1.2rem;
+            visibility: hidden;
             font-size: 0.9em;
         }
 
@@ -113,22 +113,21 @@
             width: 100%;
             height: 100%;
             z-index: 10;
-            background-color: var(--background-color); /* Assicura sfondo nero/scuro */
-            display: none; /* Nascosto di default */
+            background-color: var(--background-color);
+            display: none;
         }
 
 
         /* --- 3. CONTENUTO INVITO (TERMINALE) --- */
         #invitation-container {
-            display: none; /* Nascosto di default */
+            display: none;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 1rem; /* Padding responsivo */
+            padding: 1rem;
             box-sizing: border-box;
-            width: 100%; /* Assicura che occupi tutta la larghezza */
+            width: 100%;
             animation: fadeInTerminal 1s ease-in;
-            overflow-y: auto; /* Permette lo scroll se il contenuto è troppo lungo */
         }
 
         @keyframes fadeInTerminal {
@@ -145,7 +144,7 @@
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
             backdrop-filter: blur(5px);
             overflow: hidden;
-            box-sizing: border-box; /* Include padding nel width/height */
+            box-sizing: border-box;
         }
         
         .terminal-header {
@@ -156,56 +155,39 @@
             font-size: 0.8rem;
         }
 
-        .terminal-header .buttons {
-            display: flex;
-        }
-
-        .terminal-header .button {
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-
+        .terminal-header .buttons { display: flex; }
+        .terminal-header .button { width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.5rem; }
         .button.red { background-color: #ff5f56; }
         .button.yellow { background-color: #ffbd2e; }
         .button.green { background-color: #27c93f; }
-        
-        .terminal-header .title {
-            color: var(--text-color);
-            margin: 0 auto;
-            text-align: center;
-            flex-grow: 1; /* Permette al titolo di occupare spazio */
-        }
+        .terminal-header .title { color: var(--text-color); margin: 0 auto; text-align: center; flex-grow: 1; }
 
         .terminal-body {
             padding: 1.5rem;
-            font-size: 1.05em; /* Relativo al body, quindi 16px * 1.05 = ~16.8px */
+            font-size: 1.05em;
             line-height: 1.8;
-            word-wrap: break-word; /* Importante per testi lunghi su mobile */
+            word-wrap: break-word;
         }
 
-        .prompt {
-            color: var(--primary-color);
-        }
+        .prompt { color: var(--primary-color); }
 
         #typing-text {
             color: var(--primary-color);
             font-weight: bold;
-            font-size: 1.4em; /* Relativo al terminal-body */
+            font-size: 1.4em;
             border-right: 0.15em solid var(--primary-color);
             white-space: nowrap;
             overflow: hidden;
             margin-bottom: 1.2rem;
-            display: inline-block; /* Per far funzionare il typing effect con width */
-            max-width: 100%; /* Assicura che non vada oltre il contenitore */
+            display: inline-block;
+            max-width: 100%;
             box-sizing: border-box;
         }
 
         .info {
             opacity: 0;
             animation: fadeIn 1s ease-in forwards;
-            animation-delay: 4s; /* Ritardo per far apparire le info dopo la digitazione */
+            animation-delay: 4s;
         }
         
         @keyframes fadeIn {
@@ -227,8 +209,8 @@
             color: var(--primary-color);
             text-decoration: none;
             transition: all 0.3s ease;
-            font-size: 0.9em; /* Relativo al terminal-body */
-            word-break: break-word; /* Assicura che il testo del bottone si adatti */
+            font-size: 0.9em;
+            word-break: break-word;
         }
         
         a.button-link:hover {
@@ -239,54 +221,17 @@
 
         /* --- MEDIA QUERIES per schermi piccoli (es. smartphone) --- */
         @media (max-width: 600px) {
-            body {
-                font-size: 14px; /* Dimensione base più piccola su mobile */
-            }
-
-            .login-box {
-                padding: 1.5rem;
-            }
-
-            .login-box h1 {
-                font-size: 1.5em;
-                margin-bottom: 1rem;
-            }
-
-            .login-box p {
-                font-size: 0.85em;
-                margin-bottom: 1rem;
-            }
-
-            #password-input {
-                padding: 0.7rem;
-            }
-
-            #login-button {
-                padding: 0.6rem 1.2rem;
-            }
-
-            .terminal-body {
-                padding: 1rem;
-                font-size: 1em; /* Relativo alla nuova base di 14px */
-            }
-
-            #typing-text {
-                font-size: 1.2em;
-                border-right-width: 0.1em; /* Cursore più sottile */
-            }
-
-            .terminal-header .title {
-                font-size: 0.7rem;
-            }
-            
-            hr {
-                margin: 1rem 0;
-            }
-
-            a.button-link {
-                padding: 0.6rem 1rem;
-                font-size: 0.85em;
-            }
+            body { font-size: 14px; }
+            .login-box { padding: 1.5rem; }
+            .login-box h1 { font-size: 1.5em; margin-bottom: 1rem; }
+            .login-box p { font-size: 0.85em; margin-bottom: 1rem; }
+            #password-input { padding: 0.7rem; }
+            #login-button { padding: 0.6rem 1.2rem; }
+            .terminal-body { padding: 1rem; font-size: 1em; }
+            #typing-text { font-size: 1.2em; border-right-width: 0.1em; }
+            .terminal-header .title { font-size: 0.7rem; }
+            hr { margin: 1rem 0; }
+            a.button-link { padding: 0.6rem 1rem; font-size: 0.85em; }
         }
 
     </style>
@@ -364,19 +309,14 @@
         let rainDrops = [];
         let fontSize = 16;
         let columns;
-        let matrixInterval; // Variabile per tenere traccia dell'intervallo Matrix
+        let matrixInterval;
 
-        // Gestisce il click sul bottone o la pressione di Invio
         loginButton.addEventListener('click', checkPassword);
         passwordInput.addEventListener('keyup', function(event) {
             if (event.key === "Enter") {
                 checkPassword();
             }
         });
-
-        // ===========================================
-        // Funzioni per l'animazione Matrix
-        // ===========================================
 
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
         const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -396,7 +336,7 @@
         function drawMatrix() {
             ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
             ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            ctx.fillStyle = '#00ff41'; // Colore Matrix
+            ctx.fillStyle = '#00ff41';
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < rainDrops.length; i++) {
@@ -410,7 +350,6 @@
             }
         }
 
-        // Re-inizializza Matrix se la finestra viene ridimensionata
         window.addEventListener('resize', initializeMatrix);
         
         function checkPassword() {
@@ -431,15 +370,14 @@
 
         function startMatrixSequence() {
             matrixCanvas.style.display = 'block';
-            initializeMatrix(); // Inizializza Matrix con le dimensioni correnti
-            matrixInterval = setInterval(drawMatrix, 30); // Avvia l'intervallo
+            initializeMatrix();
+            matrixInterval = setInterval(drawMatrix, 30);
 
-            // Ferma l'animazione Matrix e mostra l'invito dopo 4 secondi
             setTimeout(() => {
-                clearInterval(matrixInterval); // Ferma l'intervallo
+                clearInterval(matrixInterval);
                 matrixCanvas.style.display = 'none';
                 showInvitation();
-            }, 4000); // Durata dell'animazione Matrix
+            }, 4000);
         }
         
         function showInvitation() {
@@ -467,8 +405,6 @@
             }
             setTimeout(typeWriter, 500);
         }
-
     </script>
-
 </body>
 </html>
