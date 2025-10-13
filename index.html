@@ -269,18 +269,21 @@
                         <strong>Ingegneria Informatica - Cybersecurity</strong>.
                     </p>
                     <hr>
-                    <p><span class="prompt">[+] CANDIDATO:</span> [IL TUO NOME E COGNOME]</p>
-                    <p><span class="prompt">[+] DATA:</span> [DATA DELLA LAUREA]</p>
-                    <p><span class="prompt">[+] ORA:</span> [ORARIO DELLA DISCUSSIONE]</p>
-                    <p><span class="prompt">[+] LUOGO:</span> [AULA E INDIRIZZO DELL'UNIVERSITÀ]</p>
+                    <p><span class="prompt">[+] DATA:</span> 24/10/2025 </p>
+                    <p><span class="prompt">[+] ORA:</span> <span id="loading-time">Caricamento...</span></p>
+                    <p><span class="prompt">[+] LUOGO:</span> [IN ATTESA DI COORDINATE]</p>
                     <hr>
                     <p>
                         Dopo la proclamazione, ci sarà un rinfresco per festeggiare insieme!<br>
-                        <span class="prompt">[+] LOCATION FESTA:</span> [INDIRIZZO DEL RINFRESCO]
+                         <span class="prompt">[+] LUOGO:</span>
+                          Piazzale Duca d'Aosta
+                          <a href="https://maps.app.goo.gl/1sjpnU4pi7GAMiecA" 
+                             target="_blank" 
+                             class="map-link" 
+                             title="Apri in Google Maps">
+                             📍
+                          </a>
                     </p>
-                    <a href="https://wa.me/39TUONUMERO?text=Ciao!%20Confermo%20la%20mia%20presenza%20alla%20tua%20laurea!" target="_blank" class="button-link">
-                        > Conferma la tua presenza [RSVP]
-                    </a>
                 </div>
             </div>
         </div>
@@ -404,6 +407,16 @@
             }
             setTimeout(typeWriter, 500);
         }
+        // --- Script per animazione testo "loading" ---
+const loadingElement = document.getElementById('loading-time');
+if (loadingElement) {
+    const loadingStates = ['Elaborazione.', 'Elaborazione..', 'Elaborazione...'];
+    let currentState = 0;
+    setInterval(() => {
+        loadingElement.textContent = loadingStates[currentState];
+        currentState = (currentState + 1) % loadingStates.length;
+    }, 600); // Cambia testo ogni 600ms
+}
     </script>
 </body>
 </html>
